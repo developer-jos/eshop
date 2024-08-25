@@ -1,0 +1,74 @@
+# Maven / Gradle
+target/
+build/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+out/
+
+# Mac OS
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+
+# Ignore generated files
+generated/
+
+# Spring Boot specific
+spring.log
+
+# System files
+Thumbs.db
+.vscode/
+
+# Java specific
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore test reports
+/test-output/
+
+# Ignore Maven Wrapper files
+.mvn/
+!**/mvnw
+!**/mvnw.cmd
+!**/mvn/
+!**/.mvn/
+
+# Ignore node_modules
+node_modules/
+npm-debug.log
+
+# Ignore config files
+application.yml
+application.properties
+.env
+
+# Ignore database files
+*.h2.db
+*.mv.db
+*.db
+
+# Ignore coverage report files
+coverage/
+jacoco.exec
+jacoco/
+*.coverdata
+*.coverage
+*.sonar/
+*.emma

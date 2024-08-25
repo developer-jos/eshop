@@ -1,0 +1,124 @@
+openapi: 3.0.1
+info:
+  title: Eshop API
+  description: API documentation for Eshop application.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+paths:
+  /api/v1/places/suggestions:
+    get:
+      summary: Get place suggestions
+      description: Provides place suggestions based on the input and location.
+      parameters:
+        - name: input
+          in: query
+          description: The search input
+          required: true
+          schema:
+            type: string
+        - name: latitude
+          in: query
+          description: The latitude of the location
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: longitude
+          in: query
+          description: The longitude of the location
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: radius
+          in: query
+          description: The radius to search within (default: 500000)
+          required: false
+          schema:
+            type: integer
+            example: 500000
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Invalid input
+        '500':
+          description: Internal server error
+
+  /api/v1/products/{location-name}:
+    get:
+      summary: Get products by location name
+      description: Retrieves paginated products by location name.
+      parameters:
+        - name: location-name
+          in: path
+          description: The name of the location
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          description: The page number (zero-based)
+          required: false
+          schema:
+            type: integer
+            example: 0
+        - name: size
+          in: query
+          description: The number of items per page
+          required: false
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProductResponseDTO'
+                  totalElements:
+                    type: integer
+                    description: Total number of elements
+                  totalPages:
+                    type: integer
+                    description: Total number of pages
+                  number:
+                    type: integer
+                    description: The current page number
+                  size:
+                    type: integer
+                    description: The number of items per page
+        '400':
+          description: Invalid input
+        '404':
+          description: Location not found
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    ProductResponseDTO:
+      type: object
+      properties:
+        productId:
+          type: integer
+          format: int64
+          description: The ID of the product
+        productName:
+          type: string
+          description: The name of the product
