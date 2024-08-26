@@ -34,9 +34,9 @@ public class LocationService {
      * @exception EshopException if the location is not found or the API response is invalid
      */
     public List<String> getPlaceSuggestions(String input, double latitude, double longitude, int radius) {
-
+        String trimmedInput = input.replaceAll("[^a-zA-Z0-9]", "");
         String url = UriComponentsBuilder.fromHttpUrl("https://maps.googleapis.com/maps/api/place/autocomplete/json")
-                .queryParam("input", input).queryParam("location", latitude+","+longitude).queryParam("radius", radius)
+                .queryParam("input", trimmedInput).queryParam("location", latitude+","+longitude).queryParam("radius", radius)
                 .queryParam("key", apiKey).toUriString();
 
         Map<String, Object> response = restTemplate.getForObject(url, Map.class);

@@ -56,7 +56,6 @@ npm-debug.log
 
 # Ignore config files
 application.yml
-application.properties
 .env
 
 # Ignore database files
