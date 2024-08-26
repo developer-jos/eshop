@@ -20,58 +20,60 @@ The project is structured as follows:
 src/
 │
 ├── main/
-│   ├── java/com/eshop/
-│   │   ├── controller/
-│   │   │   ├── LocationController.java
-│   │   │   ├── ProductController.java
-│   │   ├── dto/
-│   │   │   ├── PaginatedResponseDTO.java
-│   │   │   ├── ProductResponseDTO.java
-│   │   ├── entity/
-│   │   │   ├── Location.java
-│   │   │   ├── Product.java
-│   │   ├── repository/
-│   │   │   ├── LocationRepository.java
-│   │   │   ├── ProductRepository.java
-│   │   ├── service/
-│   │   │   ├── LocationService.java
-│   │   │   ├── ProductService.java
-│   └── resources/
-│       └── application.properties
+│ ├── java/com/eshop/
+│ │ ├── controller/
+│ │ │ ├── LocationController.java
+│ │ │ ├── ProductController.java
+│ │ ├── dto/
+│ │ │ ├── PaginatedResponseDTO.java
+│ │ │ ├── ProductResponseDTO.java
+│ │ ├── entity/
+│ │ │ ├── Location.java
+│ │ │ ├── Product.java
+│ │ ├── repository/
+│ │ │ ├── LocationRepository.java
+│ │ │ ├── ProductRepository.java
+│ │ ├── service/
+│ │ │ ├── LocationService.java
+│ │ │ ├── ProductService.java
+│ └── resources/
+│ └── application.properties
 │
 └── test/
-    ├── java/com/eshop/
-    │   ├── controller/
-    │   │   ├── LocationControllerTest.java
-    │   │   ├── ProductControllerTest.java
-    │   ├── service/
-    │   │   ├── LocationServiceTest.java
-    │   │   ├── ProductServiceTest.java
+├── java/com/eshop/
+│ ├── controller/
+│ │ ├── LocationControllerTest.java
+│ │ ├── ProductControllerTest.java
+│ ├── service/
+│ │ ├── LocationServiceTest.java
+│ │ ├── ProductServiceTest.java
 ```
 
 ## Dependencies
 
-- **Spring Boot 3**: The core framework used to build the application.
-- **Spring Data JPA**: Used for database interactions.
-- **Springdoc OpenAPI**: For generating Swagger documentation.
-- **JUnit 5**: For testing.
-- **Mockito**: For mocking in unit tests.
+- Spring Boot 3: The core framework used to build the application.
+- Spring Data JPA: Used for database interactions.
+- Springdoc OpenAPI: For generating Swagger documentation.
+- JUnit 5: For testing.
+- Mockito: For mocking in unit tests.
 
 ## How to Run
 
-1. Clone the repository.
-2. Ensure you have Java 17 or later installed.
-3. Configure your database connection in the `application.properties` file.
-4. Build the project using Maven:
-
-   ```bash
-   mvn clean install
-   ```
-
-5. Run the application:
+1. Clone the project.
+2. Build the application using the `mvn clean install` command.
+3. Start the PostgreSQL database on your local machine.
+4. Execute the 4 scripts one by one located under `resources/static/eshop.sql`.
+5. Provide the database URL, username, and password in the `application.properties` file.
+6. Start the application using the following command:
 
    ```bash
    mvn spring-boot:run
+   ```
+
+7. Now you can access the Swagger UI for API documentation at:
+
+   ```
+   http://localhost:8080/swagger-ui/index.html
    ```
 
 ## API Endpoints
@@ -80,14 +82,14 @@ src/
 
 #### 1. Get Place Suggestions
 
-- **Endpoint**: `/api/v1/places/suggestions`
-- **Method**: `GET`
-- **Parameters**:
-  - `input` (String): The search input (required).
-  - `latitude` (double): The latitude of the location (required).
-  - `longitude` (double): The longitude of the location (required).
-  - `radius` (int): The radius to search within (optional, default: 500000).
-- **Response**: A list of place suggestions based on the input and location.
+- Endpoint: /api/v1/places/suggestions
+- Method: GET
+- Parameters:
+  - input (String): The search input (required).
+  - latitude (double): The latitude of the location (required).
+  - longitude (double): The longitude of the location (required).
+  - radius (int): The radius to search within (optional, default: 500000).
+- Response: A list of place suggestions based on the input and location.
 
 Example Request:
 
@@ -99,13 +101,13 @@ GET /api/v1/places/suggestions?input=park&latitude=12.9716&longitude=77.5946&rad
 
 #### 2. Get Products by Location Name
 
-- **Endpoint**: `/api/v1/products/{location-name}`
-- **Method**: `GET`
-- **Path Parameter**:
-  - `location-name` (String): The name of the location (required).
-- **Query Parameter**:
-  - `pageable`: Pagination information (optional).
-- **Response**: A paginated list of products for the specified location.
+- Endpoint: /api/v1/products/{location-name}
+- Method: GET
+- Path Parameter:
+  - location-name (String): The name of the location (required).
+- Query Parameter:
+  - pageable: Pagination information (optional).
+- Response: A paginated list of products for the specified location.
 
 Example Request:
 
@@ -154,4 +156,3 @@ google.api.key=YOUR_GOOGLE_API_KEY
 - The project uses pagination for the product API, so make sure to provide appropriate pagination parameters.
 
 - Exception handling is implemented to ensure meaningful error messages are returned in case of invalid inputs or other errors.
-
